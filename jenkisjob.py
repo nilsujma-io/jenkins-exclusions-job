@@ -28,7 +28,6 @@ def chunk_cve_list(cve_list, size=15):
     for i in range(0, len(cve_list), size):
         yield cve_list[i:i + size]
 
-
 # Retrieve parameters from environment variables sent from Jenkins
 search_name = os.getenv('CVE_LIST_NAME')
 image_name_to_search = os.getenv('IMAGE_TO_SEARCH')
