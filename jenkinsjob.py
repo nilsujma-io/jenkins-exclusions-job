@@ -30,7 +30,7 @@ def chunk_cve_list(cve_list, size=15):
 
 # Retrieve parameters from environment variables sent from Jenkins
 search_name = os.getenv('CVE_LIST_NAME')
-image_name_to_search = os.getenv('IMAGE_TO_SEARCH')
+image_name_to_search = os.getenv('IMAGE_NAME')
 auth_token = os.getenv('AUTH_TOKEN')
 
 if not all([search_name, image_name_to_search, auth_token]):
