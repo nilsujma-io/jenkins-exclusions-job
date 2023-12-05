@@ -15,6 +15,7 @@ pipeline {
     stages {
         stage('Run CVE Script') {
             steps {
+                pip install pandas
                 sh '''
                 # Activate your Python environment if needed. Uncomment the next line if required.
                 # source path_to_your_virtualenv/bin/activate
