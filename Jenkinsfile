@@ -44,7 +44,7 @@ pipeline {
                     # Activate the virtual environment before executing our Python script
                     echo "The CVE List Name is:" $CVE_LIST_NAME
                     echo "The Image Name is:" $IMAGE_NAME
-                    echo "The Auth Token is: "$AUTH_TOKEN"
+                    echo "The Auth Token is:" $AUTH_TOKEN
                     . "${VENV_PATH}/bin/activate"
                     # Run the script. Assuming 'jenkinsjob.py' is in the current working directory
                     python3 jenkinsjob.py
