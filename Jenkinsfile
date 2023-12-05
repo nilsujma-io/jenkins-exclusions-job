@@ -43,12 +43,6 @@ pipeline {
                     #!/bin/bash
                     # Activate the virtual environment before executing our Python script
                     . "${VENV_PATH}/bin/activate"
-
-                    # Print environment variables for diagnostic purposes
-                    echo "CVE_LIST_NAME: $CVE_LIST_NAME"
-                    echo "IMAGE_NAME: $IMAGE_NAME"
-                    echo "AUTH_TOKEN: $AUTH_TOKEN"
-
                     # Run the script. Assuming 'jenkinsjob.py' is in the current working directory
                     python3 jenkinsjob.py
                     """
