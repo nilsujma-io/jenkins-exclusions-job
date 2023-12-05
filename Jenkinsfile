@@ -33,20 +33,21 @@ pipeline {
 
         stage('Run CVE Script') {
             steps {
-                script {
-                    env.CVE_LIST_NAME = params.CVE_LIST_NAME
-                    env.IMAGE_NAME = params.IMAGE_NAME
-                    env.AUTH_TOKEN = params.AUTH_TOKEN
+                // Using 'withEnv' to export parameters as environment variables
+                withEnv([
+                    "CVE_LIST_NAME=${params.CVE_LIST_NAME}",
+                    "IMAGE_NAME=${params.IMAGE_NAME}",
+                    "AUTH_TOKEN=${params.AUTH_TOKEN}"
+                ]) {
+                    sh """
+                    #!/bin/bash
+                    # Activate the virtual environment before executing our Python script
+                    . "${VENV_PATH}/bin/activate"
+
+                    # Run the script. Assuming 'jenkinsjob.py' is in the current working directory
+                    python3 jenkinsjob.py
+                    """
                 }
-
-                sh """
-                #!/bin/bash
-                # Activate the virtual environment before executing our Python script
-                . "${VENV_PATH}/bin/activate"
-
-                # Run the script. Replace 'path_to_script' with the actual script location
-                python3 jenkinsjob.py
-                """
             }
         }
     }
