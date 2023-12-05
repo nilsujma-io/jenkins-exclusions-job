@@ -46,7 +46,7 @@ pipeline {
 
                     # Print the environment variable to check if it is set correctly
                     echo "CVE_LIST_NAME is set to: '$CVE_LIST_NAME'"
-                    echo "IMAGE_NAME" is set to: '$IMAGE_NAME'"
+                    # echo "IMAGE_NAME" is set to: '$IMAGE_NAME'"
                     # echo "AUTH_TOKEN" is set to: '$AUTH_TOKEN'"
 
                     # Run the script. Assuming 'jenkinsjob.py' is in the current working directory
