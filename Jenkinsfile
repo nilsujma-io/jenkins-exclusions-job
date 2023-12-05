@@ -45,7 +45,7 @@ pipeline {
                 . "${VENV_PATH}/bin/activate"
 
                 # Run the script. Replace 'path_to_script' with the actual script location
-                python path_to_script/cve_script.py
+                python path_to_script/jenkinsjob.py
                 """
             }
         }
