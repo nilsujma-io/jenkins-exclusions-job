@@ -18,50 +18,42 @@ pipeline {
                 #!/bin/bash
                 # Create the virtual environment if it does not exist
                 if [ ! -d "${VENV_PATH}" ]; then
-                    python3 -m venv "${VENV_PATH}"
+                    /usr/bin/env python3 -m venv "${VENV_PATH}"
                 fi
 
                 # Activate the virtual environment
-                source "${VENV_PATH}/bin/activate"
+                . "${VENV_PATH}/bin/activate"
 
                 # Upgrade pip and install required Python modules
                 pip install --upgrade pip
                 pip install pandas requests
-
-                # Deactivation is not necessary in Jenkins script
                 """
             }
         }
 
         stage('Run CVE Script') {
             steps {
-                withEnv(["CVE_LIST_NAME=${params.CVE_LIST_NAME}",
-                         "IMAGE_NAME=${params.IMAGE_NAME}",
-                         "AUTH_TOKEN=${params.AUTH_TOKEN}"]) {
-                    sh """
-                    #!/bin/bash
-                    # Activate the virtual environment before executing our Python script
-                    source "${VENV_PATH}/bin/activate"
-
-                    # Add the directory containing cve_script.py to the PYTHONPATH
-                    export PYTHONPATH=\$PYTHONPATH:/var/lib/jenkins/workspace/cve-exclusions
-
-                    # Run the script. Replace with the actual path if it's located in a subdirectory.
-                    python3 /var/lib/jenkins/workspace/cve-exclusions/jenkinsjob.py
-
-                    # Optional: Deactivation is not needed but can be added for completeness
-                    # deactivate
-                    """
+                script {
+                    env.CVE_LIST_NAME = params.CVE_LIST_NAME
+                    env.IMAGE_NAME = params.IMAGE_NAME
+                    env.AUTH_TOKEN = params.AUTH_TOKEN
                 }
+
+                sh """
+                #!/bin/bash
+                # Activate the virtual environment before executing our Python script
+                . "${VENV_PATH}/bin/activate"
+
+                # Run the script. Replace 'path_to_script' with the actual script location
+                python path_to_script/cve_script.py
+                """
             }
         }
     }
 
     post {
         always {
-            // Cleanup workspace after build
             cleanWs()
         }
     }
 }
-
