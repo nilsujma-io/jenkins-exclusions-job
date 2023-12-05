@@ -26,7 +26,7 @@ pipeline {
 
                 # Upgrade pip and install required Python modules
                 pip install --upgrade pip
-                pip install pandas requests
+                pip install pandas requests openpyxl
                 """
             }
         }
