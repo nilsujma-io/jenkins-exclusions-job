@@ -14,22 +14,20 @@ pipeline {
     stages {
         stage('Setup Virtual Environment') {
             steps {
-                sh '''
+                sh """
                 #!/bin/bash
                 # Create the virtual environment if it does not exist
                 if [ ! -d "${VENV_PATH}" ]; then
-                    python3 -m venv "${VENV_PATH}"
+                    /usr/bin/env python3 -m venv "${VENV_PATH}"
                 fi
 
                 # Activate the virtual environment
-                source "${VENV_PATH}/bin/activate"
+                . "${VENV_PATH}/bin/activate"
 
                 # Upgrade pip and install required Python modules
                 pip install --upgrade pip
                 pip install pandas requests
-
-                # No need to deactivate in a non-interactive script
-                '''
+                """
             }
         }
 
@@ -41,16 +39,14 @@ pipeline {
                     env.AUTH_TOKEN = params.AUTH_TOKEN
                 }
 
-                sh '''
+                sh """
                 #!/bin/bash
                 # Activate the virtual environment before executing our Python script
-                source "${VENV_PATH}/bin/activate"
+                . "${VENV_PATH}/bin/activate"
 
                 # Run the script. Replace 'path_to_script' with the actual script location
                 python3 jenkinsjob.py
-
-                # No need to deactivate in a non-interactive script
-                '''
+                """
             }
         }
     }
