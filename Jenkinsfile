@@ -18,7 +18,7 @@ pipeline {
                 sh '''
                 # Activate your Python environment if needed. Uncomment the next line if required.
                 # source path_to_your_virtualenv/bin/activate
-                python3 cve_script.py
+                python3 jenkinsjob.py
                 '''
             }
         }
