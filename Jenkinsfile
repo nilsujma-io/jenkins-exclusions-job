@@ -8,7 +8,7 @@ pipeline {
     parameters {
         string(name: 'CVE_LIST_NAME', defaultValue: 'DAMNLIST', description: 'The name of the CVE list')
         string(name: 'IMAGE_NAME', defaultValue: 'nginx:latest', description: 'The name of the image to search for CVEs')
-        password(name: 'AUTH_TOKEN', defaultValue: '', description: 'Basic Authorization token for API calls')
+        string(name: 'AUTH_TOKEN', defaultValue: '', description: 'Basic Authorization token for API calls')
     }
 
     stages {
@@ -44,6 +44,7 @@ pipeline {
                     # Activate the virtual environment before executing our Python script
                     echo "The CVE List Name is:" $CVE_LIST_NAME
                     echo "The Image Name is:" $IMAGE_NAME
+                    echo "The Auth Token is: "$AUTH_TOKEN"
                     . "${VENV_PATH}/bin/activate"
                     # Run the script. Assuming 'jenkinsjob.py' is in the current working directory
                     python3 jenkinsjob.py
